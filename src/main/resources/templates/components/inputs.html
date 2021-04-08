@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div is="textfield" th:fragment="textfield(id, label)" th:with="type=${type ?: 'text'}, required=${required}" class="py-1">
+    <label th:for="${id}" th:text="#{${label}}" class="visually-hidden"></label>
+    <input th:type="${type}" th:id="${id}" th:name="${id}" th:required="${required}" th:placeholder="#{${label}}">
+</div>
+
+<div th:fragment="radioGuess(index, team, matchupkey)" class="flex-column display-flex m-auto radioguess">
+    <input th:field="*{matchupRows[__${index}__].guessedTeam__${team}__wins}"
+           th:id="__${matchupkey}__ + __${team}__ + 'four'" value="4" type="radio" class="visually-hidden">
+    <label class="radioguess-radio-element radioguess-radio-element--top"
+           th:for="__${matchupkey}__ + __${team}__ + 'four'">4</label>
+    <input th:field="*{matchupRows[__${index}__].guessedTeam__${team}__wins}"
+           th:id="__${matchupkey}__ + __${team}__ + 'three'" value="3" type="radio" class="visually-hidden">
+    <label class="radioguess-radio-element radioguess-radio-element--middle"
+           th:for="__${matchupkey}__ + __${team}__ + 'three'">3</label>
+    <input th:field="*{matchupRows[__${index}__].guessedTeam__${team}__wins}"
+           th:id="__${matchupkey}__ + __${team}__ + 'two'" value="2" type="radio" class="visually-hidden">
+    <label class="radioguess-radio-element radioguess-radio-element--middle"
+           th:for="__${matchupkey}__ + __${team}__ + 'two'">2</label>
+    <input th:field="*{matchupRows[__${index}__].guessedTeam__${team}__wins}"
+           th:id="__${matchupkey}__ + __${team}__ + 'one'" value="1" type="radio" class="visually-hidden">
+    <label class="radioguess-radio-element radioguess-radio-element--middle"
+           th:for="__${matchupkey}__ + __${team}__ + 'one'">1</label>
+    <input th:field="*{matchupRows[__${index}__].guessedTeam__${team}__wins}"
+           th:id="__${matchupkey}__ + __${team}__ + 'zero'" value="0" type="radio" class="visually-hidden">
+    <label class="radioguess-radio-element radioguess-radio-element--bottom"
+           th:for="__${matchupkey}__ + __${team}__ + 'zero'">0</label>
+</div>
+
+<div th:fragment="select(name, options)" class="m-auto w-100 mb-1" is="select">
+    <label th:for="${name}" class="visually-hidden"></label>
+    <select th:id="${name}" th:name="${name}" class="visually-hidden">
+        <th:block th:each="option : ${options}">
+            <option th:text="${option[0]}" th:value="${option[1]}"></option>
+        </th:block>
+    </select>
+    <div class="select p-2 w-100 text-center">
+        <button class="border-0 bg-transparent color-nbawhite w-100">
+            <span th:text="${options.get(0)[0]}"></span>
+            <span class="float-end">
+                <img class="arrow" th:src="@{images/arrow.png}">
+            </span>
+        </button>
+        <div class="select-options position-fixed display-flex flex-column">
+            <th:block th:each="option : ${options}">
+                <div class="background-color-darkgrey py-2 mx-4 mb-1">
+                    <span th:text="${option[0]}" th:value="${option[1]}"></span>
+                </div>
+            </th:block>
+            <div class="background-color-darkgrey mx-auto mb-1 select-options--close">
+                <span value="close">
+                    <img th:src="@{/images/x_symbol.png}">
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

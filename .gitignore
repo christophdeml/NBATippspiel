@@ -1,0 +1,8 @@
+/target/**
+/.idea/**
+/.m2/**
+/.mvn/**
+/nbatippspiel.iml
+/deploy.sh
+/startup.sh
+.props

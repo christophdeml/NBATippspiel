@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="bootstrap/head :: head()"></head>
+<body>
+<main>
+    <div th:id="overlay"></div>
+    <header th:replace="layout/header::header"></header>
+    <div th:replace="layout/menu::menu(selected='account')"></div>
+    <div class="container mt-12">
+        <div class=" p-3 form">
+            <form id="formUpdateAccount" class="col" th:action="@{/account}" method="post">
+                <div th:replace="components/inputs::textfield(id='username', label='label.username')"></div>
+                <div th:replace="components/inputs::textfield(id='firstname', label='label.firstname')"></div>
+                <div th:replace="components/inputs::textfield(id='lastname', label='label.lastname')"></div>
+                <div th:replace="components/inputs::textfield(id='passwordOld', label='label.passwordOld', type='password')"></div>
+                <div th:replace="components/inputs::textfield(id='passwordNew', label='label.passwordNew', type='password')"></div>
+                <div th:replace="components/inputs::textfield(id='passwordNewAgain', label='label.passwordNewAgain', type='password')"></div>
+                <input class="visually-hidden" name="usernameOld" th:value="${user.getUsername()}" type="text">
+                <button class="btn btn-primary w-100 my-3" type="submit">Speichern</button>
+            </form>
+        </div>
+    </div>
+</main>
+<footer th:replace="layout/footer::footer"></footer>
+<script th:replace="bootstrap/script :: script()"></script>
+</body>
+</html>

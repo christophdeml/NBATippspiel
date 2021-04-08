@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="bootstrap/head :: head()"></head>
+<body>
+<main>
+  <div id="overlay"></div>
+  <header th:replace="layout/header::header"></header>
+  <div th:replace="layout/menu::menu(selected='games')"></div>
+  <div class="container mt-12">
+    <div class="p-3 form">
+      <div class="date-selection">
+        <div class="date-selection--link">
+          <a th:href="'/games?date=' + ${date.minusDays(1)}" th:text="${dateStringPrevious}"></a>
+        </div>
+        <span th:text="${dateString}" class="w-50"></span>
+        <div class="date-selection--link">
+          <a th:href="'/games?date=' + ${date.plusDays(1)}" th:text="${dateStringNext}"></a>
+        </div>
+      </div>
+      <div th:each="gameRow : ${gameRows}">
+        <div th:replace="components/games::game(${gameRow})"></div>
+      </div>
+      <div th:if="${gameRows.size() == 0}" class="mt-5 text-center">
+        <span class="mb-3" th:text="#{games.no_games_today}"></span>
+        <img class="w-50 mt-3" src="/images/cryingjordan.png">
+      </div>
+    </div>
+  </div>
+</main>
+<footer th:replace="layout/footer::footer"></footer>
+<script th:replace="bootstrap/script :: script()"></script>
+</body>
+</html>

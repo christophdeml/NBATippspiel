@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="user(user)" class="table-user" th:href="@{'/user?username=' + ${user.username}}">
+        <div class="display-flex flex-row mb-1">
+            <h3 th:text="${user.username}" class="w-75 my-2 mx-2 float-start"></h3>
+            <div class="w-25 float-end display-flex flex-row mx-2 my-2">
+                <h1 class="m-auto mx-2" th:text="${user.points}"></h1>
+                <th:block th:if="${user.points == 1}">
+                    <span class="m-auto">Punkt</span>
+                </th:block>
+                <th:block th:if="${user.points != 1}">
+                    <span class="m-auto">Punkte</span>
+                </th:block>
+            </div>
+        </div>
+        <div class="display-flex flex-row">
+            <div class="display-flex flex-column text-center m-auto">
+                <span th:text="${user.splashes}"></span>
+                <span>Splashes</span>
+            </div>
+            <div class="display-flex flex-column text-center m-auto">
+                <span th:text="${user.freethrows}"></span>
+                <span>Freethrows</span>
+            </div>
+            <div class="display-flex flex-column text-center m-auto">
+                <span th:text="${user.airballs}"></span>
+                <span>Airballs</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

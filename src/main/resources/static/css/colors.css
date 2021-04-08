@@ -1,0 +1,35 @@
+:root{
+    --nbablue: #17408B;
+    --nbawhite: #FFFFFF;
+    --nbared: #C9082A;
+    --nbabluewithalpha: rgba(23, 64, 139, 0.1);
+    --nbalightbluewith08alpha: rgba(23, 64, 255, 0.8);
+}
+
+.color-nbared{
+    color: var(--nbared);
+}
+.color-nbablue{
+    color: var(--nbablue);
+}
+.color-nbawhite{
+    color: var(--nbawhite);
+}
+.background-color-nbared{
+    background-color: var(--nbared) !important;
+}
+.background-color-nbablue{
+    background-color: var(--nbablue) !important;
+}
+.background-color-nbalightbluewith08alpha{
+    background-color: var(--nbalightbluewith08alpha) !important;
+}
+.background-color-nbawhite{
+    background-color: var(--nbawhite) !important;
+}
+.background-color-grey{
+    background-color: grey !important;
+}
+.background-color-darkgrey{
+    background-color: rgba(45, 45, 45, 1);
+}

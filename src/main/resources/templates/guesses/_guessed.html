@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment="guessed(guessedMatchups, user, selectedChampion, championSelectable, conferenceOptions, roundOptions)">
+    <form th:if="${user.getChampionGuessId() == null && championSelectable}" method="post"
+          th:action="@{/guesses/champion}">
+        <select class="w-100 mb-2 p-1 text-center" name="champion" required>
+            <option value="" disabled selected th:text="#{select.guesses.champion}"></option>
+            <option th:each="team : ${teams}" th:text="${team.getCityName() + ' ' + team.getTeamName()}"
+                    th:value="${team.getId()}"></option>
+        </select>
+        <div th:replace="components/buttons::submitbutton(id='btnSaveChampion', label='button.guesses.save_champion')"></div>
+    </form>
+    <div th:if="${user.getChampionGuessId() != null}" class="game flex-column p-1">
+        <form th:if="${championSelectable}" th:action="@{/guesses/champion/delete}" class="m-auto">
+            <button type="submit" class="background-color-nbared color-nbawhite guessed-matchup--button"
+                    disabled>Löschen
+            </button>
+        </form>
+        <div class="flex-row display-flex text-center mt-3 mb-3">
+            <div class="display-flex flex-column m-auto">
+                <span class="font-size-3vh" th:text="#{label.guesses.selected_champion}"></span>
+                <span th:text="${selectedChampion.getCityName() + ' ' + selectedChampion.getTeamName()}"></span>
+            </div>
+            <img class="w-25 m-auto" th:src="'/images/' + ${selectedChampion.getShortName()} + '.png'">
+        </div>
+    </div>
+    <hr>
+    <div th:if="${guessedMatchups.size() > 0}">
+        <h5 th:text="#{label.guesses.guessed}" th:if="${guessedMatchups.size() > 0}"></h5>
+        <div th:replace="components/inputs::select(name='select_conference', options=${conferenceOptions})"></div>
+        <div th:replace="components/inputs::select(name='select_round', options=${roundOptions})"></div>
+        <form th:action="${!guessedMatchup.isStarted() ? '/guesses/delete/' + guessedMatchup.matchupKey : '#'}"
+              method="post"
+              th:each="guessedMatchup : ${guessedMatchups}">
+            <th:block>
+                <div th:replace="components/matchups::guessedMatchup(${guessedMatchup})"></div>
+            </th:block>
+        </form>
+    </div>
+    <th:block th:if="${guessedMatchups.size() == 0}">
+        <div th:replace="guesses/_general::no_entries(text='Aktuell sind keine Tipps von dir eingetragen.')"></div>
+    </th:block>
+</th:block>
+</body>
+</html>

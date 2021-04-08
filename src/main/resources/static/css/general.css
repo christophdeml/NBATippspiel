@@ -1,0 +1,282 @@
+body{
+    background-color: rgba(90, 90, 90, 1);
+    color: whitesmoke;
+    font-family: Alatsi;
+    overflow-x: hidden;
+}
+
+header {
+    background-color: var(--nbablue);
+    height: 5vh;
+    padding-bottom: 1vh;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+header a{
+    color: white;
+    text-decoration: none;
+}
+
+header div{
+    height: 100%;
+}
+
+input[type='text'], input[type='password']{
+    margin: 0;
+    padding: .5rem;
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    width: 100%;
+    transition: border .25s;
+}
+
+input[type='text']:focus, input[type='password']:focus{
+    outline: 3px solid var(--nbablue);
+}
+
+.subbar{
+    width: 100%;
+    background-color: rgba(90, 90, 90, 1);
+    top: 5vh;
+    z-index: 1;
+}
+
+.guesses-menu{
+    top: 5vh;
+    z-index: 1;
+}
+
+.guesses-menu .subbar{
+    width: 100%;
+    background-color: rgba(90, 90, 90, 1);
+    top: unset;
+    z-index: 1;
+}
+
+.subbar a{
+    text-align: center;
+    text-decoration: none;
+    padding: 1vh;
+    background-color: var(--nbabluewithalpha);
+    color: var(--nbawhite);
+}
+
+.subbar-selected{
+    background-color: var(--nbablue) !important;
+}
+
+.form{
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3rem;
+    border-radius: 15px;
+    background-color: dimgray;
+}
+
+.game{
+    font-size: 2vh;
+    background-color: rgba(45, 45, 45, 1);
+    border-radius: 15px;
+}
+.game-team{
+    display: flex;
+    flex-direction: row;
+}
+
+.game-team--name{
+    display: flex;
+    flex-direction: column;
+}
+
+.game-team--name--img{
+    max-height: 20vw;
+    max-width: 20vw;
+    margin: auto;
+}
+
+.game-team--score{
+    width: 25%;
+    margin: auto;
+    font-size: 3vh;
+}
+
+.date-selection{
+    margin-top: 10px;
+    width: 100%;
+    font-size: 3vh;
+    text-align: center;
+    display: flex;
+}
+
+.date-selection--link{
+    margin: auto;
+    width: 33% !important;
+}
+
+.date-selection--link a{
+    font-size: 2.5vh;
+    text-decoration: none;
+    color: var(--nbablue);
+    text-align: center;
+}
+
+.mr-2{
+    margin-right: 1.25rem !important;
+}
+
+.mt-12{
+    margin-top: 12vh !important;
+}
+
+.mt-18{
+    margin-top: 18vh !important;
+}
+
+.display-flex{
+    display: flex;
+}
+
+.font-size-3vh{
+    font-size: 3vh;
+}
+
+.font-size-6vh{
+    font-size: 6vh;
+}
+
+.font-size-0_75rem{
+    font-size: .75rem;
+}
+
+.radioguess input:checked + label{
+    background-color: var(--nbablue);
+}
+
+.radioguess-radio-element{
+    width: 3vh;
+    height: 3vh;
+}
+
+.radioguess-radio-element--top{
+    border-top: 1px solid white;
+    border-right: 1px solid white;
+    border-left: 1px solid white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.radioguess-radio-element--middle{
+    border-right: 1px solid white;
+    border-left: 1px solid white;
+}
+
+.radioguess-radio-element--bottom{
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+    border-left: 1px solid white;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.guessed-matchup--button{
+    border: 0;
+    transition: background-color 0.25s;
+    border-radius: 5px;
+}
+
+.guessed-matchup--button:active{
+    background-color: #6b081b;
+}
+
+.table-user{
+    background-color: rgba(45, 45, 45, 1);
+    padding: 1vh;
+    border-radius: 5px;
+}
+
+.guesses-other{
+    width: max-content;
+    border: 1px solid white;
+}
+
+.guesses-other--first{
+    margin-left: auto;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.guesses-other--last{
+    margin-right: auto;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.select{
+    border-radius: 15px;
+    background-color: rgba(45, 45, 45, 1);
+}
+
+.select-options{
+    transition: all .33s;
+    z-index: 3;
+}
+
+.select-options div{
+    cursor: pointer;
+    color: var(--nbablue);
+    background-color: lightgray;
+    border-radius: 15px;
+    border: 1px solid white;
+}
+
+.select-options--close{
+    display: block;
+    width: 6vh;
+    height: 6vh;
+    border-radius: 50% !important;
+}
+
+.select-options--close span img{
+    width: 4vh;
+    height: 4vh;
+    margin-top: 1vh;
+}
+
+.select-options div:active{
+    background-color: var(--nbablue) !important;
+    color: lightgray !important;
+}
+
+#overlay{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 1;
+    z-index: 100;
+    transition: opacity .75s, z-index .375s;
+}
+
+.arrow{
+    width: 1.5vh;
+    transition: transform .66s;
+}
+
+.w-12_5{
+    width: 12.5vw !important;
+}
+
+.w-87_5{
+    width: 87.5vw !important;
+}
+
+.rotate3d{
+    transition: transform 1s;
+    transform: rotate3d(0, 1, 0, 90deg);
+}

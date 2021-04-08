@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+  <th:block th:fragment="closed(closedMatchups)">
+    <div th:each="closedMatchup : ${closedMatchups}">
+      <div th:replace="components/matchups::guessedMatchup(${closedMatchup})"></div>
+    </div>
+    <th:block th:if="${closedMatchups.size() == 0}">
+      <div th:replace="guesses/_general::no_entries(text='Noch keine Serien sind abgeschlossen.')"></div>
+    </th:block>
+  </th:block>
+
+</body>
+</html>

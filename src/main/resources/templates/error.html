@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="bootstrap/head :: head()"></head>
+<body>
+<main>
+    <div th:id="overlay"></div>
+    <header th:replace="layout/header::header"></header>
+    <div th:replace="layout/menu::menu(selected='')"></div>
+    <div class="container mt-12">
+        <div class="p-3 form">
+            <div class="align-content-center display-flex flex-column w-50 m-auto text-center">
+                <h2 class="mb-3">Lost in the void</h2>
+                <img src="images/cryinglebron.png" class="mb-3">
+            </div>
+            <p class="w-100">
+                Da ging was schief<br>Schreib doch, welche Seite kommen sollte
+            </p>
+            <form th:action="@{/error/problem}" method="post">
+                <input type="text" aria-multiline="true" name="problem" class="w-100 mb-3"
+                       placeholder="Z.B. Tabelle nicht erreichbar">
+                <button th:replace="components/buttons::submitbutton(id='submitproblem', label='label.save')"></button>
+            </form>
+        </div>
+    </div>
+</main>
+<footer th:replace="layout/footer::footer"></footer>
+<script th:replace="bootstrap/script :: script()"></script>
+</body>
+</html>

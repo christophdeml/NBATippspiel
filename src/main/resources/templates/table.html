@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="bootstrap/head :: head()"></head>
+<body>
+<main>
+    <div th:id="overlay"></div>
+    <header th:replace="layout/header::header"></header>
+    <div th:replace="layout/menu::menu(selected='table')"></div>
+    <div class="container mt-12">
+        <div class="p-3 form">
+            <table is="table" class="table color-nbawhite">
+                <tr>
+                    <th class="border-0 pt-0">
+                        <span class="font-size-0_75rem">Klicke auf einen Benutzer für eine genauere Anzeige</span>
+                    </th>
+                </tr>
+                <th:block th:each="user, index : ${users}">
+                    <tr>
+                        <td class="border-0 py-1">
+                            <div th:replace="components/table::user(${user})"></div>
+                        </td>
+                    </tr>
+                </th:block>
+            </table>
+        </div>
+    </div>
+</main>
+<footer th:replace="layout/footer::footer"></footer>
+<script th:replace="bootstrap/script :: script()"></script>
+<script th:src="@{../js/components.js}" type="application/javascript"></script>
+</body>
+</html>

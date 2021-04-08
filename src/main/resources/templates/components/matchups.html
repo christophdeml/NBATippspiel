@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment="matchup(matchupRow, index)">
+    <div class="game my-3" is="matchup">
+        <div class="w-100 pt-2 px-3">
+            <span th:text="${matchupRow.matchupDescription}" class="mr-2"></span>
+        </div>
+        <div class="display-flex flex-row mt-1 align-items-center">
+            <div th:replace="this::guessableHomeTeam(${matchupRow.getTeam1()}, ${index}, ${matchupRow.getMatchupKey()})"></div>
+            <div class="display-flex flex-column">
+                <div class="display-flex flex-row font-size-3vh">
+                    <span class="m-auto"> : </span>
+                </div>
+            </div>
+            <div th:replace="this::guessableAwayTeam(${matchupRow.getTeam2()}, ${index}, ${matchupRow.getMatchupKey()})"></div>
+            <input type="hidden" th:value="${matchupRow.getMatchupKey()}"
+                   th:attr="name='matchupRows[__${index}__].matchupKey'">
+        </div>
+    </div>
+</th:block>
+
+<th:block th:fragment="guessedMatchup(matchupRow)">
+    <div class="game my-3 guessed-matchup" th:classappend="${matchupRow.matchupDescription}">
+        <div class="w-100 pt-2 px-3 display-flex flex-row">
+            <span th:text="${matchupRow.matchupDescription}" class="w-50 text-start"></span>
+            <div th:if="${!matchupRow.isStarted()}" class="w-50">
+                <button class="background-color-nbared color-nbawhite guessed-matchup--button float-end" type="submit">
+                    Löschen
+                </button>
+            </div>
+        </div>
+        <div class="display-flex flex-row mt-1 align-items-center">
+            <div th:replace="this::gameTeam(${matchupRow.getTeam1()})"></div>
+            <div class="display-flex flex-column">
+                <div class="display-flex flex-row font-size-3vh">
+                    <span class="m-auto" th:text="${matchupRow.currentTeam1wins}"></span>
+                    <span class="m-auto"> : </span>
+                    <span class="m-auto" th:text="${matchupRow.currentTeam2wins}"></span>
+                </div>
+                <div class="display-flex flex-column text-center font-size-3vh">
+                    <span>Mein Tipp</span>
+                    <div class="display-flex flex-row">
+                        <span class="m-auto" th:text="${matchupRow.guessedTeam1wins}"></span>
+                        <span class="m-auto"> : </span>
+                        <span class="m-auto" th:text="${matchupRow.guessedTeam2wins}"></span>
+                    </div>
+                </div>
+            </div>
+            <div th:replace="this::gameTeam(${matchupRow.getTeam2()})"></div>
+        </div>
+        <div th:id="${'otherGuesses__' + matchupRow.matchupKey}"
+             class="mx-3 mt-2 visually-hidden display-flex flex-row">
+            <th:block th:each="guessOfOtherUser, index : ${matchupRow.guessesOfOtherUsers}">
+                <div th:replace="this::otherGuess(${guessOfOtherUser}, ${matchupRow.matchupDescription}, ${index.index == 0}, ${index.index == matchupRow.guessesOfOtherUsers.size() - 1})"></div>
+            </th:block>
+            <div th:if="${matchupRow.guessesOfOtherUsers.size() == 0}" class="text-center w-100">
+                <span th:text="#{'label.guesses.no_other_guesses'}"></span>
+            </div>
+        </div>
+        <div class="display-flex flex-row">
+            <button type="button" th:id="${'btnShow__' + matchupRow.matchupKey}"
+                    class="btn-show-other-guesses bg-transparent color-nbawhite border-0 mx-auto mb-1">
+                <span>
+                    <img class="arrow" th:src="@{/images/arrow.png}">
+                </span>
+            </button>
+        </div>
+    </div>
+</th:block>
+
+<th:block th:fragment="unguessableMatchup(matchupRow)">
+    <div class="game my-3">
+        <div class="w-100 pt-2 px-3">
+            <span th:text="${matchupRow.matchupDescription}" class="mr-2"></span>
+        </div>
+        <div class="display-flex flex-row mt-1 align-items-center">
+            <div th:replace="this::gameTeam(${matchupRow.getTeam1()})"></div>
+            <div class="display-flex flex-column">
+
+            </div>
+            <div class="display-flex flex-row font-size-3vh">
+                <span class="m-auto" th:text="${matchupRow.currentTeam1wins}"></span>
+                <span class="m-auto"> : </span>
+                <span class="m-auto" th:text="${matchupRow.currentTeam2wins}"></span>
+            </div>
+            <div th:replace="this::gameTeam(${matchupRow.getTeam2()})"></div>
+        </div>
+    </div>
+</th:block>
+
+<div th:fragment="gameTeam(team)" class="col text-center py-2 game-team">
+    <div class="game-team--name m-auto">
+        <img th:src="'/images/' + ${team.shortName} + '.png'"
+             class="game-team--name--img mb-2">
+        <span th:text="${team.teamName}"></span>
+    </div>
+</div>
+
+<div th:fragment="guessableHomeTeam(team, index, matchupKey)" class="col text-center py-2 game-team">
+    <div class="game-team--name m-auto">
+        <img th:src="'/images/' + ${team.shortName} + '.png'"
+             class="game-team--name--img mb-2">
+        <span th:text="${team.teamName}"></span>
+    </div>
+    <div th:replace="components/inputs::radioGuess(${index}, '1', ${matchupKey})"></div>
+</div>
+
+<div th:fragment="guessableAwayTeam(team, index, matchupKey)" class="col text-center py-2 game-team">
+    <div th:replace="components/inputs::radioGuess(${index}, '2', ${matchupKey})"></div>
+    <div class="game-team--name m-auto">
+        <img th:src="'/images/' + ${team.shortName} + '.png'"
+             class="game-team--name--img mb-2">
+        <span th:text="${team.teamName}"></span>
+    </div>
+</div>
+
+<div th:fragment="otherGuess(otherGuess, spacer, first, last)"
+     class="guesses-other display-flex flex-column p-1 text-center"
+     th:classappend="${first ? 'guesses-other--first ' : ''} + ${last ? 'guesses-other--last' : ''}">
+    <span th:text="${otherGuess[0]}"></span>
+    <span class="font-size-3vh px-2" th:text="${otherGuess[1]}"></span>
+</div>
+</body>
+</html>

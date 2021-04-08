@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="menu(selected)" class="subbar position-fixed row row-cols-4 mx-0">
+    <a th:classappend="${selected == 'table'} ? 'subbar-selected' : ''" href="/table">Tabelle</a>
+    <a th:classappend="${selected == 'games'} ? 'subbar-selected' : ''" href="/games">Spiele</a>
+    <a th:classappend="${selected == 'guesses'} ? 'subbar-selected' : ''" href="/guesses?type=open">Tipps</a>
+    <a th:classappend="${selected == 'account'} ? 'subbar-selected' : ''" href="/account">Konto</a>
+</div>
+
+<div th:fragment="guessesMenu(selected)" class="guesses-menu position-fixed w-100 display-flex flex-column">
+    <div class="subbar row row-cols-4 mx-0">
+        <a href="/table">Tabelle</a>
+        <a href="/games">Spiele</a>
+        <a th:classappend="'subbar-selected'" href="/guesses">Tipps</a>
+        <a href="/account">Konto</a>
+    </div>
+    <div class="subbar row row-cols-4 mx-0 font-size-0_75rem">
+        <a th:classappend="${selected == 'open'} ? 'subbar-selected' : ''" href="/guesses?type=open">Offen</a>
+        <a th:classappend="${selected == 'guessed'} ? 'subbar-selected' : ''" href="/guesses?type=guessed">Getippt</a>
+        <a th:classappend="${selected == 'closed'} ? 'subbar-selected' : ''" href="/guesses?type=closed">Abgeschlossen</a>
+        <a th:classappend="${selected == 'unguessed'} ? 'subbar-selected' : ''" href="/guesses?type=unguessed">Ungetippt</a>
+    </div>
+</div>
+</body>
+</html>

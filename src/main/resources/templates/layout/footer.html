@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<footer th:fragment="footer" class="position-fixed w-100 bottom-0 background-color-nbared text-center">
+  <span class="color-nbawhite">Angemeldet als </span>
+  <span class="color-nbawhite" th:text="${user.getUsername()}"></span>
+</footer>
+</body>
+</html>

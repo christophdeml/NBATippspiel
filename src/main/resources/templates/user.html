@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="bootstrap/head :: head()"></head>
+<body>
+<main>
+    <div th:id="overlay"></div>
+    <header th:replace="layout/header::header"></header>
+    <div th:replace="layout/menu::menu(selected='user')"></div>
+    <div class="container mt-12">
+        <div class="p-3 form">
+            <div class="game p-3">
+                <div class="display-flex flex-row mb-2">
+                    <h3 th:text="${showUser.username}" class="m-auto"></h3>
+                    <div class="m-auto text-center display-flex flex-row">
+                        <h1 class="m-auto mx-2" th:text="${showUser.points}"></h1>
+                        <th:block th:if="${user.points == 1}">
+                            <span class="m-auto">Punkt</span>
+                        </th:block>
+                        <th:block th:if="${user.points != 1}">
+                            <span class="m-auto">Punkte</span>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="display-flex flex-row">
+                    <div class="display-flex flex-column text-center m-auto">
+                        <span th:text="${showUser.splashes}"></span>
+                        <span>Splashes</span>
+                    </div>
+                    <div class="display-flex flex-column text-center m-auto">
+                        <span th:text="${showUser.freethrows}"></span>
+                        <span>Freethrows</span>
+                    </div>
+                    <div class="display-flex flex-column text-center m-auto">
+                        <span th:text="${showUser.airballs}"></span>
+                        <span>Airballs</span>
+                    </div>
+                </div>
+            </div>
+
+            <div th:if="${selectedChampion != null}" class="game flex-column p-1 mt-2">
+                <div class="flex-row display-flex text-center mt-3 mb-3">
+                    <div class="display-flex flex-column m-auto">
+                        <span class="font-size-3vh" th:text="#{label.guesses.selected_champion}"></span>
+                        <span th:text="${selectedChampion.getCityName() + ' ' + selectedChampion.getTeamName()}"></span>
+                    </div>
+                    <img class="w-25 m-auto" th:src="'/images/' + ${selectedChampion.getShortName()} + '.png'">
+                </div>
+            </div>
+            <div class="display-flex flex-row mt-2">
+                <button id="btnClosed" class="btn background-color-nbablue color-nbawhite w-50 mx-2">
+                    <span>Abgeschlossen</span>
+                </button>
+                <button id="btnStarted" class="btn background-color-grey color-nbawhite w-50 mx-2">
+                    <span>Laufend</span>
+                </button>
+            </div>
+            <div class="display-flex flex-column">
+                <th:block th:each="matchup : ${closedMatchups}">
+                    <div is="closed" class="display-flex flex-row game p-3 my-2">
+                        <div class="display-flex flex-column w-100">
+                            <div class="display-flex flex-row font-size-3vh">
+                                <img class="w-25 m-auto"
+                                     th:src="'/images/' + ${matchup.getTeam1().getShortName()} + '.png'">
+                                <div class="w-50 text-center display-flex flex-column m-auto">
+                                    <span class="m-auto" th:text="${matchup.getMatchupDescription()}"></span>
+                                    <span class="m-auto"
+                                          th:text="${matchup.getCurrentTeam1wins() + ' : ' + matchup.getCurrentTeam2wins()}"></span>
+                                </div>
+                                <img class="w-25 m-auto"
+                                     th:src="'/images/' + ${matchup.getTeam2().getShortName()} + '.png'">
+                            </div>
+                            <div class="float-end w-100 text-center m-auto display-flex flex-row">
+                                <div class="display-flex flex-row align-items-center m-auto font-size-3vh">
+                                    <th:block
+                                            th:if="${matchup.getGuessedTeam1wins() != null && matchup.getGuessedTeam2wins() != null}">
+                                        <span class="mx-2">Getippt: </span>
+                                        <span th:text="${matchup.getGuessedTeam1wins() + ' : ' + matchup.getGuessedTeam2wins()}"></span>
+                                    </th:block>
+                                    <th:block
+                                            th:if="${matchup.getGuessedTeam1wins() == null || matchup.getGuessedTeam2wins() == null}">
+                                        <span class="mx-2">Nicht getippt</span>
+                                    </th:block>
+                                </div>
+                                <div class="display-flex flex-row align-items-center m-auto">
+                                    <th:block
+                                            th:if="${matchup.getGuessedTeam1wins() != null && matchup.getGuessedTeam2wins() != null}">
+                                        <th:block
+                                                th:if="${matchup.getCurrentTeam1wins() - matchup.getCurrentTeam2wins() == matchup.getGuessedTeam1wins() - matchup.getGuessedTeam2wins()}">
+                                            <span class="font-size-6vh">3</span>
+                                            <span class="mx-2 font-size-3vh">Punkte</span>
+                                        </th:block>
+                                        <th:block
+                                                th:if="${(matchup.getCurrentTeam1wins() - matchup.getCurrentTeam2wins() != matchup.getGuessedTeam1wins() - matchup.getGuessedTeam2wins()) && (matchup.getCurrentTeam1wins() - matchup.getCurrentTeam2wins() > 0) == (matchup.getGuessedTeam1wins() - matchup.getGuessedTeam2wins() > 0)}">
+                                            <span class="font-size-6vh">1</span>
+                                            <span class="mx-2 font-size-3vh">Punkt</span>
+                                        </th:block>
+                                        <th:block
+                                                th:if="${(matchup.getCurrentTeam1wins() - matchup.getCurrentTeam2wins() > 0) != (matchup.getGuessedTeam1wins() - matchup.getGuessedTeam2wins() > 0)}">
+                                            <span class="font-size-6vh">0</span>
+                                            <span class="mx-2 font-size-3vh">Punkte</span>
+                                        </th:block>
+                                    </th:block>
+                                    <th:block
+                                            th:if="${matchup.getGuessedTeam1wins() == null || matchup.getGuessedTeam2wins() == null}">
+                                        <span class="font-size-6vh">0</span>
+                                        <span class="mx-2 font-size-3vh">Punkte</span>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+                <th:block th:each="matchup : ${startedMatchups}">
+                    <div is="started" class="display-flex flex-row game p-3 my-2 visually-hidden">
+                        <div class="display-flex flex-column w-100">
+                            <div class="display-flex flex-row font-size-3vh">
+                                <img class="w-25 m-auto"
+                                     th:src="'/images/' + ${matchup.getTeam1().getShortName()} + '.png'">
+                                <div class="w-50 text-center display-flex flex-column m-auto">
+                                    <span class="m-auto" th:text="${matchup.getMatchupDescription()}"></span>
+                                    <span class="m-auto"
+                                          th:text="${matchup.getCurrentTeam1wins() + ' : ' + matchup.getCurrentTeam2wins()}"></span>
+                                </div>
+                                <img class="w-25 m-auto"
+                                     th:src="'/images/' + ${matchup.getTeam2().getShortName()} + '.png'">
+                            </div>
+                            <div class="float-end w-100 text-center m-auto display-flex flex-row">
+                                <div class="display-flex flex-row align-items-center m-auto font-size-3vh">
+                                    <th:block
+                                            th:if="${matchup.getGuessedTeam1wins() != null && matchup.getGuessedTeam2wins() != null}">
+                                        <span class="mx-2">Getippt: </span>
+                                        <span th:text="${matchup.getGuessedTeam1wins() + ' : ' + matchup.getGuessedTeam2wins()}"></span>
+                                    </th:block>
+                                    <th:block
+                                            th:if="${matchup.getGuessedTeam1wins() == null || matchup.getGuessedTeam2wins() == null}">
+                                        <span class="mx-2">Nicht getippt</span>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="layout/footer::footer"></footer>
+<script th:replace="bootstrap/script :: script()"></script>
+<script th:src="@{/js/components.js}"></script>
+<script th:src="@{/js/guesses.js}"></script>
+<script th:src="@{/js/user.js}"></script>
+</body>
+</html>

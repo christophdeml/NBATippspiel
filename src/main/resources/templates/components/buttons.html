@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<body>
+  <button th:fragment="submitbutton(id, label)" th:id="${id}" class="btn btn-primary w-100 mb-3" type="submit" th:text="#{${label}}"></button>
+  <a th:fragment="linkbutton(id, label, href)" th:id="${id}" th:text="#{${label}}" th:href="${href}" class="btn btn-primary w-100 mb-3 background-color-nbablue"></a>
+  <button th:fragment="disabledButton(id, label)" th:id="${id}" th:text="#{${label}}" class="btn btn-primary w-100 mb-3 background-color-grey border-0" disabled="disabled"></button>
+</body>
+</html>

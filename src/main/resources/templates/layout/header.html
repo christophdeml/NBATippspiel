@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<header th:fragment="header" class="position-fixed">
+  <div class="float-end">
+    <form action="/logout" method="post">
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+      <input id="btnLogout" class="btn m-1 p-0 color-nbawhite" type="submit" value="Logout" />
+    </form>
+  </div>
+</header>
+</body>
+</html>

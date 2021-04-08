@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="bootstrap/head :: head()"></head>
+<body>
+<main>
+    <div th:id="overlay"></div>
+    <div class="m-5">
+        <h1 class="text-center">NBA Tippspiel</h1>
+    </div>
+    <div class="container">
+        <div class="p-3 form">
+            <form id="formLogin" method="post" th:action="@{/perform_login}">
+                <div th:replace="components/inputs::textfield(id='username', label='label.username', required=true)"></div>
+                <div th:replace="components/inputs::textfield(id='password', label='label.password', type='password', required=true)"></div>
+                <div class="mt-3"></div>
+                <button th:replace="components/buttons::submitbutton(id='btnLogin', label='label.login')"></button>
+                <a th:replace="components/buttons::disabledButton(id='btnRegister', label='label.register')"></a>
+            </form>
+            <div th:if="${error}" class="alert alert-danger">
+                <h5>Iguodala, up for the layup! Oh! Blocked by James!</h5>
+                <span>Anmeldung fehlgeschlagen</span>
+            </div>
+            <div th:if="${logout}" class="alert alert-success">
+                <h5 th:text="#{logout.success.__${logoutMessage}__}"></h5>
+                <span>Erfolgreich abgemeldet</span>
+            </div>
+        </div>
+    </div>
+</main>
+<script th:replace="bootstrap/script :: script()"></script>
+</body>
+</html>

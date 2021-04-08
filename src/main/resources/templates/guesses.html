@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="bootstrap/head :: head()"></head>
+<body>
+<main>
+    <div th:id="overlay"></div>
+    <header th:replace="layout/header::header"></header>
+    <div th:replace="layout/menu::guessesMenu(${type})"></div>
+    <div class="container mt-18">
+        <div class="p-3 form">
+            <th:block th:if="${type.equals('open')}">
+                <div th:replace="guesses/_open::open(${matchups}, ${matchupRowDto})"></div>
+            </th:block>
+            <th:block th:if="${type.equals('guessed')}">
+                <div th:replace="guesses/_guessed::guessed(${guessedMatchups}, ${user}, ${selectedChampion}, ${championSelectable}, ${conferenceOptions}, ${roundOptions})"></div>
+            </th:block>
+            <th:block th:if="${type.equals('closed')}">
+                <div th:replace="guesses/_closed::closed(${closedMatchups})"></div>
+            </th:block>
+            <th:block th:if="${type.equals('unguessed')}">
+                <div th:replace="guesses/_unguessed::unguessed(${unguessableMatchups})"></div>
+            </th:block>
+        </div>
+    </div>
+</main>
+<footer th:replace="layout/footer::footer"></footer>
+<script th:replace="bootstrap/script :: script()"></script>
+<script th:src="@{/js/components.js}"></script>
+<script th:src="@{/js/guesses.js}"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+  <th:block th:fragment="unguessed(unguessableMatchups)">
+    <h5 th:text="#{label.guesses.unguessable}" th:if="${unguessableMatchups.size() > 0}"></h5>
+    <div th:each="unguessableMatchup : ${unguessableMatchups}">
+      <div th:replace="components/matchups::unguessableMatchup(${unguessableMatchup})"></div>
+    </div>
+    <th:block th:if="${unguessableMatchups.size() == 0}">
+      <div th:replace="guesses/_general::no_entries(text='Du hast alle Serien getippt')"></div>
+      <img src="/images/noice.gif" class="w-100 mt-3">
+    </th:block>
+  </th:block>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+  <th:block th:fragment="open(matchups, matchupRowDto)">
+    <h5 th:text="#{label.guesses.guessable}" th:if="${matchups.size() > 0}"></h5>
+    <form id="formMatchups" th:if="${matchups.size() > 0}" method="post" th:action="@{/guesses/matchups}"
+          th:object="${matchupRowDto}">
+      <th:block th:each="matchup, index : ${matchups}">
+        <div th:replace="components/matchups::matchup(${matchup}, ${index.index})"></div>
+      </th:block>
+      <button th:replace="components/buttons::submitbutton(id='btnSaveGuesses', label='label.guesses.save')"></button>
+    </form>
+    <th:block th:if="${matchups.size() == 0}">
+      <div th:replace="guesses/_general::no_entries(text='Zur Zeit gibt\'s nichts zu tippen.')"></div>
+    </th:block>
+  </th:block>
+
+</body>
+</html>

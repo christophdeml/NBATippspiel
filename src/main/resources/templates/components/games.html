@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+  <th:block th:fragment="game(gameRow)">
+    <div class="game my-3 display-flex">
+      <div class="col text-center py-2 game-team">
+        <div class="game-team--name pt-3 px-3">
+          <img th:src="'/images/' + ${gameRow.awayTeam.shortName} + '.png'" class="game-team--name--img mb-2">
+          <span th:text="${gameRow.awayTeam.teamName}"></span>
+        </div>
+        <span class="float-end w-25 m-auto game-team--score" th:text="${gameRow.awayTeamPoints}"></span>
+      </div>
+      <span class="m-auto p-3">:</span>
+      <div class="col text-center py-2 game-team">
+        <span class="float-start w-25 m-auto game-team--score" th:text="${gameRow.homeTeamPoints}"></span>
+        <div class="game-team--name pt-3 px-3">
+          <img th:src="'/images/' + ${gameRow.homeTeam.shortName} + '.png'" class="game-team--name--img mb-2">
+          <span th:text="${gameRow.homeTeam.teamName}"></span>
+        </div>
+      </div>
+    </div>
+  </th:block>
+
+</body>
+</html>
